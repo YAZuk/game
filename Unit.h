@@ -2,28 +2,35 @@
 #define GAME_UNIT_H
 
 
-
 namespace unit {
 
     class Unit {
 
     public:
-        Unit();
+        Unit() noexcept ;
 
-        Unit(const Unit &other);
+        Unit(const Unit &other) noexcept ;
 
-        Unit(const Unit &&other);
+        Unit(const Unit &&other) noexcept ;
 
-        virtual void go();
+        virtual void go() noexcept ;
 
-        virtual void fly();
+        virtual void fly() noexcept ;
 
         virtual ~Unit();
 
-    private:
-        double speed = 0.0;
-        double level = 0.0;
+        [[nodiscard]] float getSpeed() const noexcept ;
 
+        [[nodiscard]] float getLevel() const;
+
+        void setSpeed(float speed);
+
+        void setLevel(float level);
+
+
+    private:
+        float level = 0.0;
+        float speed = 0.0;
 
 
     };
