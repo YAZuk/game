@@ -3,28 +3,32 @@
 
 
 namespace unit {
-
+    /**
+     * @brief Базовый класс юнита
+     */
     class Unit {
 
     public:
-        Unit() noexcept ;
+        Unit();
 
-        Unit(const Unit &other) noexcept ;
+        Unit(const Unit &other);
 
-        Unit(const Unit &&other) noexcept ;
+        Unit(const Unit &&other);
 
-        virtual void go() noexcept ;
+        virtual void go();
 
-        virtual void fly() noexcept ;
+        virtual void fly();
 
         virtual ~Unit();
 
-        [[nodiscard]] float getSpeed() const noexcept ;
+        [[nodiscard]] float getSpeed() const noexcept;
 
-        [[nodiscard]] float getLevel() const;
+        [[nodiscard]] float getLevel() const noexcept;
 
+        /** Set the speed.*/
         void setSpeed(float speed);
 
+        /** Set the level.*/
         void setLevel(float level);
 
 

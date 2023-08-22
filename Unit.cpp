@@ -28,11 +28,11 @@ namespace unit {
 
     }
 
-    float Unit::getLevel() const {
+    float Unit::getLevel() const noexcept {
         return level;
     }
 
-    float Unit::getSpeed() const {
+    float Unit::getSpeed() const noexcept {
         return 0;
     }
 
