@@ -33,7 +33,7 @@ namespace unit {
     }
 
     float Unit::getSpeed() const noexcept {
-        return 0;
+        return speed;
     }
 
     void Unit::setSpeed(float speed) {
@@ -41,7 +41,7 @@ namespace unit {
     }
 
     void Unit::setLevel(float level) {
-
+        Unit::level = level;
     }
 
 }

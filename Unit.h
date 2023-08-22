@@ -21,15 +21,15 @@ namespace unit {
 
         virtual ~Unit();
 
-        [[nodiscard]] float getSpeed() const noexcept;
+        [[nodiscard]] virtual float getSpeed() const noexcept;
 
-        [[nodiscard]] float getLevel() const noexcept;
+        [[nodiscard]] virtual float getLevel() const noexcept;
 
-        /** Set the speed.*/
-        void setSpeed(float speed);
+        /** Установить скорость*/
+        virtual void setSpeed(float speed);
 
-        /** Set the level.*/
-        void setLevel(float level);
+        /** Установить уровень состояния юнита*/
+        virtual void setLevel(float level);
 
 
     private:
