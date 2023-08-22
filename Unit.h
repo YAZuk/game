@@ -1,6 +1,6 @@
 #ifndef GAME_UNIT_H
 #define GAME_UNIT_H
-
+#include <string>
 
 namespace unit {
     /**
@@ -35,6 +35,8 @@ namespace unit {
     private:
         float level = 0.0;
         float speed = 0.0;
+        std::string name = "";
+
 
 
     };
