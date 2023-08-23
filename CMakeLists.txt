@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 23)
 #find_package(OpenGL REQUIRED)
 
 
-find_package(OpenGL REQUIRED)
-find_package(FREEGLUT REQUIRED)
+#find_package(OpenGL REQUIRED)
+#find_package(FREEGLUT REQUIRED)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
@@ -25,11 +25,12 @@ find_package(Threads REQUIRED)
 #find_package(GLUT REQUIRED)
 
 #set ( CMAKE_C_FLAGS "-L c:\\Program Files (x86)\\freeglut\\bin -lfreeglut")
+#set(CMAKE_C_FLAGS "-L -lwsock32")
 #set_target_properties(libfreeglut_static.a PROPERTIES LINKER_LANGUAGE CXX)
 #SET(GCC_COVERAGE_LINK_FLAGS    "-lfreeglut")
 #find_library(SOMELIB libfreeglut_static.a)
 
-include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
+#include_directories(${OPENGL_INCLUDE_DIRS} ${GLUT_INCLUDE_DIRS})
 #include_directories( ${OPENGL_INCLUDE_DIRS})
 #add_library(libfreeglut_static.a STATIC "C:/Program Files (x86)/freeglut/lib")
 #find_package(GLUT REQUIRED)
@@ -60,6 +61,7 @@ add_executable(game main.cpp
         Archer.h
 )
 
-target_link_libraries(game  PRIVATE Threads::Threads)
+target_link_libraries(game PRIVATE Threads::Threads)
+target_link_libraries(game PRIVATE wsock32 ws2_32)
 #target_link_libraries(game  ${OPENGL_gl_LIBRARY} ${GLUT_LIBRARY})
 #target_link_libraries(game ${OPENGL_gl_LIBRARY} ${OPENGL_freeglut_LIBRARY})

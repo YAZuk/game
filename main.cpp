@@ -15,6 +15,11 @@
 #include <windows.h>
 #include <dwmapi.h>
 #include <ws2tcpip.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/unistd.h>
+#include <winsock2.h>
+
 
 #include "Unit.h"
 #include "Archer.h"
@@ -98,6 +103,40 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     car2->fly();
 
     car2->getLevel();
+
+
+    /*----------------------------------------------------*/
+    /*
+     * Функция WSAStartup инициирует использование библиотеки DLL Winsock процессом.
+     */
+
+    WSADATA wsaData;
+    ZeroMemory(&wsaData, sizeof(wsaData));
+    int nResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    if (nResult != 0) {
+        printf(TEXT("WSAStartup function failed, value: %d\n"), nResult);
+        Sleep(5000);
+        return 0001;
+    } else
+        printf(TEXT("WSAStartup function has succeeded! value: %d\n"), nResult);
+    struct addrinfo *result = NULL, *ptr = NULL, hints;
+    ZeroMemory(&hints, sizeof(hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_protocol = IPPROTO_TCP;
+    hints.ai_flags = AI_PASSIVE;
+    nResult = getaddrinfo("rootbrains.ru", "http", &hints, &result);
+
+    if (nResult != 0) {
+        printf("getaddrinfo did not return 0... failure...");
+        WSACleanup();
+        return 0002;
+    }
+
+    SOCKET ListenSocket = INVALID_SOCKET;
+    freeaddrinfo(result);
+    /*----------------------------------------------------*/
+
 
 
     // Step 3: The Message Loop
