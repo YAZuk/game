@@ -6,10 +6,39 @@ set(CMAKE_CXX_STANDARD 23)
 #find_package(OpenGL REQUIRED)
 
 
-include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
+find_package(OpenGL REQUIRED)
+find_package(FREEGLUT REQUIRED)
 
-find_package(OpenGL)
-find_package(GLUT)
+#set(BUILD_SHARED_LIBS OFF)
+
+#SET(GLUT_INCLUDE_DIR "c:\\Program Files\\JetBrains\\CLion 2023.2\\bin\\mingw\\x86_64-w64-mingw32\\")
+#SET(GLUT_LIBRARY "c:\\Program Files (x86)\\freeglut\\bin\\libfreeglut.dll")
+#SET(GLUT_LIBRARY "c:\\Program Files (x86)\\freeglut\\lib\\libfreeglut_static.a")
+#set_target_properties(freeglut_static PROPERTIES LINK_SEARCH_END_STATIC 1)
+#set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+#set_target_properties(freeglut_static PROPERTIES LINK_SEARCH_END_STATIC 1)
+
+#find_package(GLUT REQUIRED)
+
+#set ( CMAKE_C_FLAGS "-L c:\\Program Files (x86)\\freeglut\\bin -lfreeglut")
+#set_target_properties(libfreeglut_static.a PROPERTIES LINKER_LANGUAGE CXX)
+#SET(GCC_COVERAGE_LINK_FLAGS    "-lfreeglut")
+#find_library(SOMELIB libfreeglut_static.a)
+
+include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
+#include_directories( ${OPENGL_INCLUDE_DIRS})
+#add_library(libfreeglut_static.a STATIC "C:/Program Files (x86)/freeglut/lib")
+#find_package(GLUT REQUIRED)
+
+
+#include_directories(
+#        ${GLUT_LIB_DIR}
+#        ${OPENGL_INCLUDE_DIR}
+#        ${GLUT_INCLUDE_DIR}
+#)
+
+#add_library(libfreeglut.a SHARED ${CMAKE_SOURCE_DIR}/lib/)
+#target_include_directories(game ${"c:\\Program Files\\JetBrains\\CLion 2023.2\\bin\\mingw\\x86_64-w64-mingw32\\"})
 
 #message(STATUS "GLM included at ${GLM_INCLUDE_DIR}")
 
@@ -27,4 +56,5 @@ add_executable(game main.cpp
         Archer.h
 )
 
-target_link_libraries(game ${OPENGL_gl_LIBRARY} ${GLUT_LIBRARY})
+target_link_libraries(game  ${OPENGL_gl_LIBRARY} ${GLUT_LIBRARY})
+#target_link_libraries(game ${OPENGL_gl_LIBRARY} ${OPENGL_freeglut_LIBRARY})

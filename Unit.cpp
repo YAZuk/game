@@ -21,11 +21,11 @@ namespace unit {
     }
 
     void Unit::fly() {
-
+        std::cout << "fly" << std::endl;
     }
 
     void Unit::go() {
-
+        std::cout << "go" << std::endl;
     }
 
     float Unit::getLevel() const noexcept {
