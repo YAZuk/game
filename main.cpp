@@ -2,7 +2,10 @@
 #include <cassert>
 #include <memory>
 #include <unordered_map>
-
+#include <mutex>
+#include <semaphore>
+#include <pthread.h>
+#include <thread>
 
 #include <gl\gl.h>
 #include <gl\glu.h>
@@ -61,7 +64,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = hInstance;
-    wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    wc.hIcon = LoadIcon(NULL, IDI_QUESTION);
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground = (HBRUSH) (COLOR_WINDOW + 1);
     wc.lpszMenuName = NULL;
@@ -80,7 +83,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
             g_szClassName,
             "The title of my window",
             WS_OVERLAPPEDWINDOW,
-            CW_USEDEFAULT, CW_USEDEFAULT, 240, 120,
+            CW_USEDEFAULT, CW_USEDEFAULT, 500, 500,
             NULL, NULL, hInstance, NULL);
 
     if (hwnd == NULL) {
@@ -91,6 +94,29 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
+
+
+    auto car = std::make_unique<unit::Transport>();
+
+    assert(car->getSpeed() >= 0.0);
+
+    auto car2 = dynamic_cast<unit::Unit *> (car.get());
+
+    assert(car2);
+
+    assert(car.get() == car2);
+
+    car2 = std::move(car.get());
+
+    car2->go();
+
+    car2->fly();
+
+    car2->getLevel();
+
+
+
+
 
     // Step 3: The Message Loop
     while (GetMessage(&Msg, NULL, 0, 0) > 0) {

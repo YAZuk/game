@@ -9,6 +9,9 @@ set(CMAKE_CXX_STANDARD 23)
 find_package(OpenGL REQUIRED)
 find_package(FREEGLUT REQUIRED)
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
 #set(BUILD_SHARED_LIBS OFF)
 
 #SET(GLUT_INCLUDE_DIR "c:\\Program Files\\JetBrains\\CLion 2023.2\\bin\\mingw\\x86_64-w64-mingw32\\")
@@ -56,5 +59,6 @@ add_executable(game main.cpp
         Archer.h
 )
 
-target_link_libraries(game  ${OPENGL_gl_LIBRARY} ${GLUT_LIBRARY})
+target_link_libraries(game  PRIVATE Threads::Threads)
+#target_link_libraries(game  ${OPENGL_gl_LIBRARY} ${GLUT_LIBRARY})
 #target_link_libraries(game ${OPENGL_gl_LIBRARY} ${OPENGL_freeglut_LIBRARY})
