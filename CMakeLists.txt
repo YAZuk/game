@@ -11,6 +11,7 @@ find_package(FREEGLUT REQUIRED)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
+#find_package(DWMAPI REQUIRED)
 
 #set(BUILD_SHARED_LIBS OFF)
 

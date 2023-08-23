@@ -13,7 +13,7 @@
 #include <gl\wgl.h>
 
 #include <windows.h>
-
+#include <dwmapi.h>
 //#include <gl\glut.h>
 
 //#include <GL\freeglut.h>
@@ -22,6 +22,9 @@
 #include "Unit.h"
 #include "Archer.h"
 #include "Transport.h"
+
+#define DWMWA_MICA_EFFECT DWORD(1029)
+
 
 
 //static void RenderSceneCB() {
@@ -76,6 +79,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
                    MB_ICONEXCLAMATION | MB_OK);
         return 0;
     }
+
+//    int useMica = 1;
+//    DwmSetWindowAttribute(hwnd, DWMWA_MICA_EFFECT, &useMica, sizeof(int));
 
     // Step 2: Creating the Window
     hwnd = CreateWindowEx(
