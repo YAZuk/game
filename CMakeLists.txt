@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 23)
 
 include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
 
-find_package(OpenGL REQUIRED COMPONENTS OpenGL)
+find_package(OpenGL)
 find_package(GLUT)
 
 #message(STATUS "GLM included at ${GLM_INCLUDE_DIR}")

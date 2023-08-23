@@ -36,11 +36,11 @@ namespace unit {
         return speed;
     }
 
-    void Unit::setSpeed(float speed) {
+    void Unit::setSpeed(float speed) noexcept {
         Unit::speed = speed;
     }
 
-    void Unit::setLevel(float level) {
+    void Unit::setLevel(float level) noexcept {
         Unit::level = level;
     }
 

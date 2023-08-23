@@ -8,7 +8,7 @@
 #include <gl\glu.h>
 #include <gl\glaux.h>
 #include <gl\wgl.h>
-//#include <GL\freeglut.h>
+//#include <gl\freeglut.h>
 
 #include "Unit.h"
 #include "Archer.h"
@@ -30,6 +30,8 @@ int main() {
     car2 = std::move(car.get());
 
     car2->go();
+
+    car2->fly();
 
     car2->getLevel();
 

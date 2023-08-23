@@ -1,5 +1,6 @@
 #ifndef GAME_UNIT_H
 #define GAME_UNIT_H
+
 #include <string>
 
 namespace unit {
@@ -26,17 +27,16 @@ namespace unit {
         [[nodiscard]] virtual float getLevel() const noexcept;
 
         /** Установить скорость*/
-        virtual void setSpeed(float speed);
+        virtual void setSpeed(float speed) noexcept;
 
         /** Установить уровень состояния юнита*/
-        virtual void setLevel(float level);
+        virtual void setLevel(float level) noexcept;
 
 
     private:
         float level = 0.0;
         float speed = 0.0;
         std::string name = "";
-
 
 
     };
