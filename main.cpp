@@ -14,10 +14,7 @@
 
 #include <windows.h>
 #include <dwmapi.h>
-//#include <gl\glut.h>
-
-//#include <GL\freeglut.h>
-//#include <gl>
+#include <ws2tcpip.h>
 
 #include "Unit.h"
 #include "Archer.h"
@@ -25,21 +22,8 @@
 
 #define DWMWA_MICA_EFFECT DWORD(1029)
 
-
-
-//static void RenderSceneCB() {
-//    glClear(GL_COLOR_BUFFER_BIT);
-//    glutSwapBuffers();
-//}
-//
-//static void InitializeGlutCallbacks() {
-//    glutDisplayFunc(RenderSceneCB);
-//}
-
-
 const char g_szClassName[] = "myWindowClass";
 
-// Step 4: the Window Procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
         case WM_CLOSE:
@@ -60,7 +44,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     HWND hwnd;
     MSG Msg;
 
-    //Step 1: Registering the Window Class
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.style = 0;
     wc.lpfnWndProc = WndProc;
@@ -80,10 +63,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         return 0;
     }
 
-//    int useMica = 1;
-//    DwmSetWindowAttribute(hwnd, DWMWA_MICA_EFFECT, &useMica, sizeof(int));
-
-    // Step 2: Creating the Window
     hwnd = CreateWindowEx(
             WS_EX_CLIENTEDGE,
             g_szClassName,
@@ -121,9 +100,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     car2->getLevel();
 
 
-
-
-
     // Step 3: The Message Loop
     while (GetMessage(&Msg, NULL, 0, 0) > 0) {
         TranslateMessage(&Msg);
@@ -131,72 +107,3 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
     return Msg.wParam;
 }
-
-
-//int main(int argc, char **argv) {
-//
-////    glGetString(GL_VERSION);
-////    glutInit(&argc, argv);
-////    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-////    glutInitWindowSize(1024, 768);
-////    glutInitWindowPosition(100, 100);
-////    glutCreateWindow("Tutorial 01");
-////
-//////    InitializeGlutCallbacks();
-////    glutDisplayFunc(RenderSceneCB);
-////
-////    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-////
-////    glutMainLoop();
-//
-//    auto car = std::make_unique<unit::Transport>();
-//
-//    assert(car->getSpeed() >= 0.0);
-//
-//    auto car2 = dynamic_cast<unit::Unit *> (car.get());
-//
-//    assert(car2);
-//
-//    assert(car.get() == car2);
-//
-//    car2 = std::move(car.get());
-//
-//    car2->go();
-//
-//    car2->fly();
-//
-//    car2->getLevel();
-//
-//    return 0;
-//}
-
-
-//int main(int argc, char **argv) {
-//    // Инициализация GLUT
-//    glutInit(&argc, argv);
-//    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-//    glutInitWindowPosition(100,100);
-//    glutInitWindowSize(400,400);
-//    glutCreateWindow("Урок 1");
-//    glutMainLoop();
-//
-////    auto car = std::make_unique<unit::Transport>();
-////
-////    assert(car->getSpeed() >= 0.0);
-////
-////    auto car2 = dynamic_cast<unit::Unit *> (car.get());
-////
-////    assert(car2);
-////
-////    assert(car.get() == car2);
-////
-////    car2 = std::move(car.get());
-////
-////    car2->go();
-////
-////    car2->fly();
-////
-////    car2->getLevel();
-//
-//    return 0;
-//}
