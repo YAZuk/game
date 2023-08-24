@@ -1,19 +1,8 @@
-/* 3D view manipulation demo
- * Written by John Tsiombikas <nuclear@member.fsf.org>
- *
- * Demonstrates how to use freeglut callbacks to manipulate a 3D view, similarly
- * to how a modelling program or a model viewer would operate.
- *
- * Rotate: drag with the left mouse button.
- * Scale: drag up/down with the right mouse button.
- * Pan: drag with the middle mouse button.
- *
- * Press space to animate the scene and update the display continuously, press
- *   again to return to updating only when the view needs to change.
- * Press escape or q to exit.
- */
+
 #include <stdio.h>
 #include <string.h>
+#include <string>
+#include <iostream>
 #include <math.h>
 #include <GL/freeglut.h>
 
@@ -38,12 +27,19 @@ static const char *helptext[] = {
 };
 
 void idle(void);
+
 void display(void);
+
 void print_help(void);
+
 void reshape(int x, int y);
+
 void keypress(unsigned char key, int x, int y);
+
 void skeypress(int key, int x, int y);
+
 void mouse(int bn, int st, int x, int y);
+
 void motion(int x, int y);
 
 int win_width, win_height;
@@ -56,16 +52,24 @@ long anim_start;
 long nframes;
 
 #ifndef GL_FRAMEBUFFER_SRGB
-#define GL_FRAMEBUFFER_SRGB	0x8db9
+#define GL_FRAMEBUFFER_SRGB    0x8db9
 #endif
 
 #ifndef GL_MULTISAMPLE
 #define GL_MULTISAMPLE 0x809d
 #endif
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     glutInit(&argc, argv);
+
+
+
+
+//    std::cout << version << std::endl;
+//    printf(version);
+
+
+
     glutInitWindowSize(800, 600);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
     glutCreateWindow("freeglut 3D view demo");
@@ -86,13 +90,11 @@ int main(int argc, char **argv)
     return 0;
 }
 
-void idle(void)
-{
+void idle(void) {
     glutPostRedisplay();
 }
 
-void display(void)
-{
+void display(void) {
     long tm;
     float lpos[] = {-1, 2, 3, 0};
 
@@ -108,7 +110,7 @@ void display(void)
     glLightfv(GL_LIGHT0, GL_POSITION, lpos);
 
     glPushMatrix();
-    if(anim) {
+    if (anim) {
         tm = glutGet(GLUT_ELAPSED_TIME) - anim_start;
         glRotatef(tm / 10.0f, 1, 0, 0);
         glRotatef(tm / 10.0f, 0, 1, 0);
@@ -150,8 +152,7 @@ void display(void)
     nframes++;
 }
 
-void print_help(void)
-{
+void print_help(void) {
     int i;
     const char *s, **text;
 
@@ -168,17 +169,17 @@ void print_help(void)
 
     text = help ? helptext : helpprompt;
 
-    for(i=0; text[i]; i++) {
+    for (i = 0; text[i]; i++) {
         glColor3f(0, 0.1, 0);
         glRasterPos2f(7, win_height - (i + 1) * 20 - 2);
         s = text[i];
-        while(*s) {
+        while (*s) {
             glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *s++);
         }
         glColor3f(0, 0.9, 0);
         glRasterPos2f(5, win_height - (i + 1) * 20);
         s = text[i];
-        while(*s) {
+        while (*s) {
             glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *s++);
         }
     }
@@ -189,10 +190,10 @@ void print_help(void)
     glPopAttrib();
 }
 
-#define ZNEAR	0.5f
-void reshape(int x, int y)
-{
-    float vsz, aspect = (float)x / (float)y;
+#define ZNEAR    0.5f
+
+void reshape(int x, int y) {
+    float vsz, aspect = (float) x / (float) y;
     win_width = x;
     win_height = y;
 
@@ -204,12 +205,11 @@ void reshape(int x, int y)
     glFrustum(-aspect * vsz, aspect * vsz, -vsz, vsz, 0.5, 500.0);
 }
 
-void keypress(unsigned char key, int x, int y)
-{
+void keypress(unsigned char key, int x, int y) {
     static int fullscr;
     static int prev_xsz, prev_ysz;
 
-    switch(key) {
+    switch (key) {
         case 27:
         case 'q':
             exit(0);
@@ -220,7 +220,7 @@ void keypress(unsigned char key, int x, int y)
             glutIdleFunc(anim ? idle : 0);
             glutPostRedisplay();
 
-            if(anim) {
+            if (anim) {
                 anim_start = glutGet(GLUT_ELAPSED_TIME);
                 nframes = 0;
             } else {
@@ -232,12 +232,12 @@ void keypress(unsigned char key, int x, int y)
 
         case '\n':
         case '\r':
-            if(!(glutGetModifiers() & GLUT_ACTIVE_ALT)) {
+            if (!(glutGetModifiers() & GLUT_ACTIVE_ALT)) {
                 break;
             }
         case 'f':
             fullscr ^= 1;
-            if(fullscr) {
+            if (fullscr) {
                 prev_xsz = glutGet(GLUT_WINDOW_WIDTH);
                 prev_ysz = glutGet(GLUT_WINDOW_HEIGHT);
                 glutFullScreen();
@@ -248,9 +248,8 @@ void keypress(unsigned char key, int x, int y)
     }
 }
 
-void skeypress(int key, int x, int y)
-{
-    switch(key) {
+void skeypress(int key, int x, int y) {
+    switch (key) {
         case GLUT_KEY_F1:
             help ^= 1;
             glutPostRedisplay();
@@ -260,31 +259,35 @@ void skeypress(int key, int x, int y)
     }
 }
 
-void mouse(int bn, int st, int x, int y)
-{
+void mouse(int bn, int st, int x, int y) {
     int bidx = bn - GLUT_LEFT_BUTTON;
     bnstate[bidx] = st == GLUT_DOWN;
     mouse_x = x;
     mouse_y = y;
+    char *version = (char *) glGetString(GL_VERSION);
+    printf("%s\n", version);
+
+    char *extensions = (char *) glGetString(GL_EXTENSIONS);
+    printf("%s\n", extensions);
+
 }
 
-void motion(int x, int y)
-{
+void motion(int x, int y) {
     int dx = x - mouse_x;
     int dy = y - mouse_y;
     mouse_x = x;
     mouse_y = y;
 
-    if(!(dx | dy)) return;
+    if (!(dx | dy)) return;
 
-    if(bnstate[0]) {
+    if (bnstate[0]) {
         cam_theta += dx * 0.5;
         cam_phi += dy * 0.5;
-        if(cam_phi < -90) cam_phi = -90;
-        if(cam_phi > 90) cam_phi = 90;
+        if (cam_phi < -90) cam_phi = -90;
+        if (cam_phi > 90) cam_phi = 90;
         glutPostRedisplay();
     }
-    if(bnstate[1]) {
+    if (bnstate[1]) {
         float up[3], right[3];
         float theta = cam_theta * M_PI / 180.0f;
         float phi = cam_phi * M_PI / 180.0f;
@@ -301,9 +304,9 @@ void motion(int x, int y)
         cam_pan[2] += (right[2] * dx + up[2] * dy) * 0.01;
         glutPostRedisplay();
     }
-    if(bnstate[2]) {
+    if (bnstate[2]) {
         cam_dist += dy * 0.1;
-        if(cam_dist < 0) cam_dist = 0;
+        if (cam_dist < 0) cam_dist = 0;
         glutPostRedisplay();
     }
 }
