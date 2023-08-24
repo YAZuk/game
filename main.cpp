@@ -14,6 +14,7 @@
 #pragma warning (disable: 4305 4244)
 #endif
 
+static const char *versionGL[] = {"", 0};
 static const char *helpprompt[] = {"Press F1 for help", 0};
 static const char *helptext[] = {
         "Rotate: left mouse drag",
@@ -31,6 +32,8 @@ void idle(void);
 void display(void);
 
 void print_help(void);
+
+void print_version(void);
 
 void reshape(int x, int y);
 
@@ -61,14 +64,6 @@ long nframes;
 
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
-
-
-
-
-//    std::cout << version << std::endl;
-//    printf(version);
-
-
 
     glutInitWindowSize(800, 600);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
@@ -148,9 +143,50 @@ void display(void) {
 
     print_help();
 
+    print_version();
+
     glutSwapBuffers();
     nframes++;
 }
+
+void print_version(void) {
+    int i;
+    const char *s, **text;
+
+    glPushAttrib(GL_ENABLE_BIT);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_DEPTH_TEST);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glOrtho(0, win_width, 0, win_height, -1, 1);
+
+    text = help ? versionGL : versionGL;
+
+    for (i = 0; text[i]; i++) {
+        glColor3f(0, 0.1, 0.2);
+        glRasterPos2f(7 + 300, win_height - (i + 1) * 20 - 2);
+        s = text[i];
+        while (*s) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *s++);
+        }
+        glColor3f(0, 0.9, 0.2);
+        glRasterPos2f(5 + 300, win_height - (i + 1) * 20);
+        s = text[i];
+        while (*s) {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *s++);
+        }
+    }
+
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+
+    glPopAttrib();
+}
+
 
 void print_help(void) {
     int i;
@@ -267,8 +303,12 @@ void mouse(int bn, int st, int x, int y) {
     char *version = (char *) glGetString(GL_VERSION);
     printf("%s\n", version);
 
-    char *extensions = (char *) glGetString(GL_EXTENSIONS);
-    printf("%s\n", extensions);
+//    char *extensions = (char *) glGetString(GL_EXTENSIONS);
+//    printf("%s\n", extensions);
+
+
+    versionGL[0] = version;
+
 
 }
 
