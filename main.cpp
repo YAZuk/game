@@ -27,6 +27,13 @@ static const char *helptext[] = {
         0
 };
 
+
+GLubyte rasters[24] = {
+        0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00,
+        0xff, 0x00, 0xff, 0x00, 0xc0, 0x00, 0xc0, 0x00, 0xc0, 0x00,
+        0xff, 0xc0, 0xff, 0xc0};
+
+
 void idle(void);
 
 void display(void);
@@ -145,6 +152,16 @@ void display(void) {
 
     print_version();
 
+//    glClear(GL_COLOR_BUFFER_BIT);
+//    glPixelStorei (GL_UNPACK_ALIGNMENT, 1);
+//    glRasterPos2i (20, 20);
+//    glColor3f (1.0, 0.0, 0.0);
+//    glBitmap (10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
+//    glBitmap (10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
+//    glBitmap (10, 12, 0.0, 0.0, 11.0, 0.0, rasters);
+//    glFlush();
+
+
     glutSwapBuffers();
     nframes++;
 }
@@ -152,6 +169,9 @@ void display(void) {
 void print_version(void) {
     int i;
     const char *s, **text;
+
+    char *version = (char *) glGetString(GL_VERSION);
+    versionGL[0] = version;
 
     glPushAttrib(GL_ENABLE_BIT);
     glDisable(GL_LIGHTING);
@@ -164,21 +184,17 @@ void print_version(void) {
     glLoadIdentity();
     glOrtho(0, win_width, 0, win_height, -1, 1);
 
-    text = help ? versionGL : versionGL;
 
-    for (i = 0; text[i]; i++) {
-        glColor3f(0, 0.1, 0.2);
-        glRasterPos2f(7 + 300, win_height - (i + 1) * 20 - 2);
-        s = text[i];
-        while (*s) {
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *s++);
-        }
-        glColor3f(0, 0.9, 0.2);
+    for (i = 0; versionGL[i]; i++) {
+        glColor3f(5.0, 0.9, 0.2);
         glRasterPos2f(5 + 300, win_height - (i + 1) * 20);
-        s = text[i];
-        while (*s) {
+        s = versionGL[i];
+        while (*s){
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *s++);
+//            glBitmap()
         }
+
+
     }
 
     glPopMatrix();
@@ -206,12 +222,12 @@ void print_help(void) {
     text = help ? helptext : helpprompt;
 
     for (i = 0; text[i]; i++) {
-        glColor3f(0, 0.1, 0);
-        glRasterPos2f(7, win_height - (i + 1) * 20 - 2);
-        s = text[i];
-        while (*s) {
-            glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *s++);
-        }
+//        glColor3f(0, 0.1, 0);
+//        glRasterPos2f(7, win_height - (i + 1) * 20 - 2);
+//        s = text[i];
+//        while (*s) {
+//            glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *s++);
+//        }
         glColor3f(0, 0.9, 0);
         glRasterPos2f(5, win_height - (i + 1) * 20);
         s = text[i];
@@ -300,16 +316,6 @@ void mouse(int bn, int st, int x, int y) {
     bnstate[bidx] = st == GLUT_DOWN;
     mouse_x = x;
     mouse_y = y;
-    char *version = (char *) glGetString(GL_VERSION);
-    printf("%s\n", version);
-
-//    char *extensions = (char *) glGetString(GL_EXTENSIONS);
-//    printf("%s\n", extensions);
-
-
-    versionGL[0] = version;
-
-
 }
 
 void motion(int x, int y) {
