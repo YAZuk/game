@@ -5,3 +5,8 @@ latex/
 html/
 *.exe
 
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+game
